@@ -34,9 +34,9 @@ markdown: kramdown
 baseurl: "" # the subpath of your site, e.g. /blog
 
 # User settings
-username: Jonathan Day-Reiner
+username: Eighteen Percent Grey
 user_description: "Jonathan Day-Reiner is a DevOps manager, large-format photographer and dad from Toronto, Canada"
-user_title: Eighteen Percent Grey
+user_title: The DevOps Weblog of Jonathan Day-Reiner
 twitter_username: dayreiner
 github_username:  dayreiner
 gplus_username:  18pct
