@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    {% include blog/head.html %}
+    <body>
+        {% include blog/svg-icons.html %}
+        {% include blog/header-post.html %}
+        <section class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+            <article role="article" id="scroll" class="post-content" itemprop="articleBody">
+                {{ content }}
+            </article>
+
+            {% include blog/share.html %}
+            {% include blog/author.html %}
+            {% include blog/comments.html %}
+            {% include blog/footer.html %}
+        </section>
+    </body>
+</html>

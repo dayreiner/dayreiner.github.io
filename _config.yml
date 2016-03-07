@@ -1,8 +1,8 @@
 # Site settings
 title: Jonathan Day-Reiner
 email: contact@18pct.com
-url: https://dayreiner.github.io
-description: "Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description."
+url: http://localhost:4000
+description: "Jonathan Day-Reiner is a DevOps manager, large-format photographer and dad from Toronto, Canada"
 
 # Color settings (hex-codes without the leading hash-tag)
 color:
@@ -29,4 +29,44 @@ social:
 
 # Build settings
 markdown: kramdown
-permalink: pretty
+#permalink: pretty
+# Site settings
+baseurl: "" # the subpath of your site, e.g. /blog
+
+# User settings
+username: Jonathan Day-Reiner
+user_description: "Jonathan Day-Reiner is a DevOps manager, large-format photographer and dad from Toronto, Canada"
+user_title: Eighteen Percent Grey
+twitter_username: dayreiner
+github_username:  dayreiner
+gplus_username:  18pct
+disqus_username: 18pct
+
+# Build settings
+highlighter: pygments
+permalink: /:title/
+
+
+# html minify
+compress_html:
+  clippings: all
+  comments: all
+  endings: []
+  profile: false
+
+# Links to include in menu navigation
+# For external links add external: true
+links:
+  - title: Blog Home
+    url: /blog
+  - title: Homepage
+    url: /
+  - title: Series
+    url: /series
+  - title: Tags
+    url: /tags
+  - title: About Me
+    url: /about
+
+# exclude my node related stuff
+exclude: ['package.json', 'src', 'node_modules']
