@@ -42,6 +42,9 @@ github_username:  dayreiner
 gplus_username:  18pct
 disqus_username: 18pct
 
+# Google Analytics Code
+ga_property: UA-23393647-1
+
 # Build settings
 highlighter: rouge
 permalink: /:title/
