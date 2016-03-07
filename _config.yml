@@ -45,6 +45,11 @@ disqus_username: 18pct
 # Google Analytics Code
 ga_property: UA-23393647-1
 
+# Google Adsense Banner
+adsense_clientid: ca-pub-9224495040457161
+adsense_slot: 7283870615
+adsense_format: auto
+
 # Build settings
 highlighter: rouge
 permalink: /:title/
