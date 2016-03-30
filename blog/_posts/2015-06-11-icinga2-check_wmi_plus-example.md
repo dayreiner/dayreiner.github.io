@@ -4,8 +4,9 @@ title: "Icinga2 check_wmi_plus Example"
 date: 2015-06-11 21:56:01
 image: '/assets/img/'
 description:
-tags:
-categories:
+excerpt: An example check_wmi_plus configuration for Icinga2. Check_wmi_plus is a clientless plugin for monitoring Windows systems via WMI with Nagios and other monitoring platforms.
+tags: icinga2 monitoring check_wmi_plus
+categories: monitoring
 twitter_text:
 ---
 An example check_wmi_plus configuration for Icinga2. [Check_wmi_plus](http://www.edcint.co.nz/checkwmiplus/) is a clientless plugin for monitoring Windows systems via WMI with Nagios and other monitoring platforms.

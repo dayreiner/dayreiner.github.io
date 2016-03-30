@@ -870,6 +870,7 @@ body {
     font-weight: 300;
     font-style: normal;
     font-size: 1.25rem;
+    text-align: justify;
 }
 .post-item .content .description a {
     color: #999;
@@ -958,6 +959,7 @@ body {
 .post-content p,
 .post-content li {
     color: #333;
+    text-align: justify;
 }
 .post-content p code,
 .post-content li code {
@@ -1191,18 +1193,18 @@ table td {
     }
 }
 pre {
-    background: #222;
+    background: #333;
     width: 100%;
     padding: 1.25rem 0;
-    color: #fff;
+    color: #eee;
     margin: 1.875rem 0;
     font-size: .875rem;
 }
 @media only screen and (min-width: 37.5rem) {
     pre {
         font-size: 1rem;
-        padding: 2.5rem 0;
-        margin: 3.125rem 0
+        padding: 1.5rem 0;
+        margin: 3.125rem 0;
     }
 }
 pre code {

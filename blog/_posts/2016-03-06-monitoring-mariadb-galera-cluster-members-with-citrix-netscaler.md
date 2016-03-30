@@ -3,13 +3,12 @@ layout: blog/post
 title: "Monitoring MariaDB Galera cluster members with Citrix Netscaler"
 date: 2016-03-06 22:10:13
 image: '/assets/img/'
-description:
-tags:
-categories:
+description: The standard MySQL checks in Netscaler only check if the system is alive. Instead, lets just have one check that both confirms the DB is alive and also that its a healthy member of the cluster.
+excerpt: If you're using a 1:1 relationship of app to db instances or if you're balancing load to the database, you'll want to make sure that not only is the database responding but also that the specific database system you're connecting to is synchronized with the cluster and not experiencing any issues. 
+tags: mariadb netscaler softlayer
+categories: devops mariadb
 twitter_text:
 ---
-Monitoring MariaDB Galera Cluster Members with Citrix Netscaler
-=======================================
 At my workplace, we run several [MariaDB Galera clusters](https://mariadb.com/kb/en/mariadb/what-is-mariadb-galera-cluster/) for various client sites and use [Citrix Netscaler](https://www.citrix.com/products/netscaler-application-delivery-controller/overview.html) Application Delivery Controllers to load-balance various services (among other features). With near-synchronous multimaster replication, Galera cluster simplifies application stacks as in many cases you can point each web server at its own corresponding database server and just worry about balancing the load between your application servers. 
 
 Citrix netscaler also supports load-balancing across MySQL systems, for instances where you want to spread out reads across systems or want to balance reads and send writes to a specific system. 

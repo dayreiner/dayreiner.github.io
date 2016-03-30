@@ -63,10 +63,10 @@ if [[ "${1}" == "-p" || "${1}" == "--publish" ]]; then
 fi
 
 # Set your blog URL
-BLOG_URL="your_site"
+BLOG_URL="http://18pct.com"
 
 # Set your assets URL
-ASSETS_URL="blog/assets/img/"
+ASSETS_URL="/blog/assets/img/"
 # ----------------------------------------------------------------
 
 
@@ -133,8 +133,9 @@ echo "---"
 echo "layout: blog/post"
 echo "title: \"${POST_TITLE}\""
 echo "date: ${CURRENT_DATE} ${TIME}"
-echo "image: '/assets/img/'"
+echo "image: '/blog/assets/img/'"
 echo "description:"
+echo "excerpt:"
 echo "tags:"
 echo "categories:"
 echo "twitter_text:"

@@ -3,15 +3,13 @@ layout: blog/post
 title: "Sending Bash and ZSH Commands to Syslog"
 date: 2016-02-21 22:07:13
 image: '/assets/img/'
-description:
-tags:
-categories:
+description: A trivial method for getting a searchable record of all user actions on a system for convenience and not for security or auditing purposes.
+excerpt: Your bash/zsh history is great if its complete, but it doesn't capture commands across all users, sudo's, root commands etc. It would be nice to be able to look up what the user did at the time, and searching through multiple, possibly truncated history files is a pain.
+tags: zsh bash syslog
+categories: tips
 twitter_text:
 ---
-Sending Bash and ZSH Commands to Syslog
-=======================================
-
- Your bash/zsh history is great if its complete, but it doesn't capture commands across all users, sudo's, root commands etc. In particular with test environments, someone may perform a "one-off" procedure and then months later it needs to be repeated. It would be nice to be able to look up what the user did at the time, and searching through multiple, possibly truncated history files is a pain.
+Your bash/zsh history is great if its complete, but it doesn't capture commands across all users, sudo's, root commands etc. In particular with test environments, someone may perform a "one-off" procedure and then months later it needs to be repeated. It would be nice to be able to look up what the user did at the time, and searching through multiple, possibly truncated history files is a pain.
 
 Tools like [typescript](http://man7.org/linux/man-pages/man1/script.1.html) are great if you're actively documenting, but not something you would use all the time in practice and capture more than just a history of your commands. There are third-party tools like [rootsh](https://sourceforge.net/projects/rootsh/) and [Snoopy](https://github.com/a2o/snoopy) that can accomplish this, but third-party tools can be overkill if all you want is a quick reference in a relatively controlled environment. 
 

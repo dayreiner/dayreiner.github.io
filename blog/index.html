@@ -19,8 +19,8 @@ layout: blog/default
                 <div class="content">
                     <a href="{{ post.url | prepend: site.baseurl }}"><h2 class="post-title" itemprop="name">{{ post.title }}</h2></a>
                     <p class="description">
-                        {{ post.content | strip_html | truncatewords:40 }}
-                        <a href="{{ post.url | prepend: site.baseurl }}" class="link">Read more about {{post.title}}</a>
+                        {{ post.excerpt | strip_html }}...<br />
+                        <br /><a href="{{ post.url | prepend: site.baseurl }}" class="link">Continue reading...</a>
                     </p>
 
                     <div class="tags">
