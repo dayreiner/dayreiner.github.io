@@ -52,7 +52,7 @@ On top of all this, you can use a mix of VLANs/security groups/VNets (or whateve
 
 # Putting it all Together
 
-In the second part of this series, we'll dive in to more detail around the individual steps in the process. In the mean time, I've put up a [repository on github](https://github.com/dayreiner/docker-swarm-mariadb) with bash scripts to automate the process both as a documentation exercise and as a general proof-of-concept. In addition to the deployment helper scripts, you'll find compose files for consul and MariaDB using my [CentOS7 MariaDB Galera](https://hub.docker.com/r/dayreiner/centos7-mariadb-10.1-galera/) docker image off of [docker hub](hub.docker.com). 
+In the second part of this series, we'll dive in to more detail around the individual steps in the process. In the mean time, I've put up a [repository on github](https://github.com/dayreiner/docker-swarm-mariadb) with bash scripts to automate the process both as a documentation exercise and as a general proof-of-concept. In addition to the deployment helper scripts, you'll find compose files for consul and MariaDB using my [CentOS7 MariaDB Galera](https://hub.docker.com/r/dayreiner/centos7-mariadb-10.1-galera/) docker image off of [docker hub](https://hub.docker.com). 
 
 Running through the scripts in order, you'll end up with an n-node MariaDB Galera cluster running on top of a multi-master Docker Swarm, using an HA Consul cluster for swarm discovery and btrfs container storage -- all self-contained within the *n* swarm masters. In a real production environment, you would want to consider moving the database and any services on to Swarm agent hosts, and leave the three swarm masters to the task of managing the swarm itself.
 
