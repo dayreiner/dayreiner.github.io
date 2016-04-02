@@ -2,7 +2,7 @@
 layout: blog/post
 title: "Zero to HA MariaDB and Docker Swarm in under 15 minutes on IBM Softlayer (or anywhere, really)<br />Part One" 
 date: 2016-03-30 20:00:00
-image: '/blog/assets/img/docker-jaws.png'
+image: '/blog/assets/img/docker-swarm.png'
 description: Part one of a two-part series on building a high-availability containerized MariaDB Galera cluster on top of a multi-master docker swarm in the cloud.
 tags: docker docker-swarm docker-compose docker-machine consul mariadb softlayer
 categories: docker 
@@ -25,8 +25,8 @@ With production workloads come production concerns though: high-availability in 
 
 Sure, you could create an HA consul cluster outside of the swarm for this but it seems rather inefficient to run three extra nodes just for a component that plays such a relatively small (but extremely critical) role within the swarm. Yes, there are ways to take the external consul instance out of the mix, but they also tend to take machine out of the mix too -- requiring you to create the swarm manually on existing docker nodes. 
 
-![Docker](/blog/assets/img/docker-jaws.png)
-{: style="align: center; margin-top: -60px; margin-bottom: -10px"}
+![Docker](/blog/assets/img/docker-swarm.png)
+{: style="align: center; margin-top: -100px; margin-bottom: -50px"}
 
 Enter [Jacob Blain Christen](https://medium.com/@dweomer) and his article [Toward a Production-Ready Docker Swarm with Consul](https://medium.com/on-docker/toward-a-production-ready-docker-swarm-cluster-with-consul-9ecd36533bb8#.fngyb759z), which details a simple little hack to have your cake and eat it too -- deploy both swarm and the consul cluster to the swarm itself, all using `docker-machine`. Because swarm will keep retrying after the initial provisioning, you can use this trick to get the swarm up and running with a highly-available KVS, completely self-contained. Awesome! We'll definitely be taking advantage of that here. Now while I haven't had much luck getting the same consul instance to also work for discovery of services that live exclusively on the overlay network, you could also run [registrator](http://gliderlabs.com/registrator/latest/) on top of all this to advertise services exposed on the host network.
 
