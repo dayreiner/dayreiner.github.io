@@ -1,7 +1,7 @@
 ---
 layout: blog/post
 title: "Zero to HA MariaDB and Docker Swarm in under 15 minutes on IBM Softlayer (or anywhere, really) <br />Part Two"
-date: 2016-04-05 08:00:00
+date: 2016-04-04 08:00:00
 image: '/blog/assets/img/docker-machine-swarm-mariadb-love.png'
 description: Part two of a two-part series on building a high-availability containerized MariaDB Galera cluster on top of a multi-master docker swarm in the cloud.
 tags: docker docker-swarm docker-compose docker-machine consul mariadb softlayer
@@ -86,18 +86,20 @@ To check when the provisioning process is completed, run:
 
 Once the API reports back a state of `RUNNING`, your node is ready.
 
+> **Note**: The [`provision_softlayer.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/provision_softlayer.sh) script needs `expect` installed on your system to get around `slcli` not having a `-y` option to force through orders/cancellations without any input. To perform the raw API calls to order and cancel without any prompting, or for more information on using the Softlayer ordering API programatically, refer to the [documentation](https://sldn.softlayer.com/blog/phil/Simplified-CCI-Creation).
+
 ## <a name="post-provisioning"></a> Run post-provisioning scripts
 
-Once the intstances are provisioned, we're going to want to prep them a bit before adding them with machine. `provision_softlayer.sh` copies and executes [`sl_post_provision.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/instance/sl_post_provision.sh) from the `instance` subdirectory over to the newly-provisioned instances and runs it once they are accessible.
+Once the intstances are provisioned, we're going to want to prep them a bit before adding them with machine. [`provision_softlayer.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/provision_softlayer.sh) copies and executes [`sl_post_provision.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/instance/sl_post_provision.sh) from the `instance` subdirectory over to the newly-provisioned instances and runs it once they are accessible.
 
-Since we're using docker's [btrfs storage driver](https://docs.docker.com/engine/userguide/storagedriver/btrfs-driver/), `sl_post_provision.sh` runs the following actions to prep the system and build our btrfs docker volume:
+Since we're using docker's [btrfs storage driver](https://docs.docker.com/engine/userguide/storagedriver/btrfs-driver/), we'll run the following actions to prep the system and build our btrfs docker volume via [`sl_post_provision.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/instance/sl_post_provision.sh):
 
-* Updates the system
-* Installs the necessary packages to support LVM and btrfs
-* Installs the net-tools package to workaround docker-machine [issue #2481](https://github.com/docker/machine/issues/2481)
-* Partitions the secondary volume on the instance
-* Adds the secondary volume to LVM and formats it as a btrfs filesystem
-* Mounts the btrfs filesystem at `/var/lib/docker`
+* Update the system
+* Install the necessary packages to support LVM and btrfs
+* Install the net-tools package to workaround docker-machine [issue #2481](https://github.com/docker/machine/issues/2481)
+* Partition the secondary volume on the instance
+* Add the secondary volume to LVM and format it as a btrfs filesystem
+* Mount the btrfs filesystem at `/var/lib/docker`
 
 > **Tip:** Depending on your environment, you may want to also run your [ansible](https://www.ansible.com/) playbooks, install additional software or further tune the system to fit your standards.
 
@@ -133,7 +135,7 @@ lvcreate -l 100%FREE -n docker_lv1 docker_vg
 
 You could stop here and just set up the device mapper driver when deploying docker to use the LVM group for the docker volume and metadata. You can find more information on configuring the device mapper driver in the official [Docker Documentation](https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/).
 
-Building with `sl_post_provision.sh`, we go one step further and format the LVM volume with btrfs. To configure the LVM partition as a btrfs filesystem, simply run the command 
+Building with [`sl_post_provision.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/instance/sl_post_provision.sh), we go one step further and format the LVM volume with btrfs. To configure the LVM partition as a btrfs filesystem, simply run the following on the provisioned instance:
 
 `mkfs.btrfs /dev/docker_vg/docker_lv1`.
 
@@ -202,7 +204,7 @@ In Jacob Blain Christen's article [Toward a Production-Ready Docker Swarm with C
 
 Since we haven't deployed the actual consul containers yet, the swarm nodes can't yet form a multi-master cluster. The [`build_swarm.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/build_swarm.sh) script and compose file borrow his technique to buy some time to deploy the consul containers *after* we've got the individual swarm nodes started in a semi-functional state. 
 
-After the swarm masters have been provisioned with machine, `build_swarm.sh` will then run `docker-compose` to deploy Consul across all nodes. 
+After the swarm masters have been provisioned with machine, [`build_swarm.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/build_swarm.sh) will then run `docker-compose` to deploy Consul across all nodes. 
 
 > **Note:** As this is a self-contained cluster, we're using [consul server](https://hub.docker.com/r/gliderlabs/consul-server/) images on each node -- larger swarms would be better served using the [consul agent image](https://hub.docker.com/r/gliderlabs/consul-agent/) instead on any swarm members that aren't part of the initial HA contol nodes:
 
@@ -275,7 +277,7 @@ This exposes consul's DNS on port 53 locally on the swarm node, adds our upstrea
 
 ## <a name="verify-swarm"></a >Verify the Swarm
 
-By now, `build_swarm.sh` should have exited. Within a few minutes, the restarted docker daemons should start finding the consul cluster and being the process of starting the swarm and connecting to the other swarm masters. To check on the status, load the environment variables for the swarm using `eval $(docker-machine env --swarm ${node}` and issuing a `docker info` command. If the swarm is operational, you should see output similar to below -- with each swarm member listed in the swarm node list. If the number of `Nodes` is less than what you deployed or is empty, wait a few seconds and try again:
+By now, [`build_swarm.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/build_swarm.sh) should have exited. Within a few minutes, the restarted docker daemons should start finding the consul cluster and being the process of starting the swarm and connecting to the other swarm masters. To check on the status, load the environment variables for the swarm using "`eval $(docker-machine env --swarm ${node}`" and issue a "`docker info`" command. If the swarm is operational, you should see output similar to below -- with each swarm member listed in the swarm node list. If the number of `Nodes` is less than what you deployed or is empty, wait a few seconds and try again:
 
 {% highlight bash %}
 Containers: 9
@@ -339,14 +341,14 @@ So now we've got a multi-master swarm up and running using a high-availabilty co
 
 > **Note:** Keeping with the CentOS 7 theme, we'll be using my [centos7-mariadb-10.1-galera](https://hub.docker.com/r/dayreiner/centos7-mariadb-10.1-galera/) image from Docker Hub to deploy the MariaDB Galera cluster across the swarm nodes. This image is based upon the offical MariaDB 10.1 image, except it uses CentOS insted of Ubuntu and has both Galera cluster and Percona Xtrabackup support added in. More info on customizing/configuring the image can be found at the previous link or at the [source repository](https://github.com/dayreiner/centos7-MariaDB-10.1-galera) on github.
 
-Before we start deploying the MariaDB image though, we'll create our overlay network. The overlay network will be used for all inter-cluster communications. `deploy_mariadb.sh` will also expose port 3306 on each instance to the internal network of the dockerhost. Assuming you're running you app servers across the same swarm, you could skip exposing the port at all, and run your application traffic against the overlay network as well.
+Before we start deploying the MariaDB image though, we'll create our overlay network. The overlay network will be used for all inter-cluster communications. [`deploy_mariadb.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/deploy_mariadb.sh) will also expose port 3306 on each instance to the internal network of the dockerhost. Assuming you're running you app servers across the same swarm, you could skip exposing the port at all, and run your application traffic against the overlay network as well.
 
 ## <a name="create-overlay"></a> Create the overlay network
 
 [![Overlay Network](/blog/assets/img/docker-overlay.png)](https://docs.docker.com/engine/userguide/networking/get-started-overlay/)
 {: style="align: center; margin-top: -50px; margin-bottom: -20px;"}
 
-Once swarm is up and running, creating the overlay network is just a matter of issuing a couple of commands and optionally picking out a subnet for your network if you need to specify it (i.e. to avoid conflicts with other local subnets). Make sure you have machine pointed at the swarm by issuing `eval $(docker-machine env --swarm ${node})`, and then create the subnet with:
+Once swarm is up and running, creating the overlay network is just a matter of issuing a couple of commands and optionally picking out a subnet for your network if you need to specify it (i.e. to avoid conflicts with other local subnets). Make sure you have machine pointed at the swarm by issuing "`eval $(docker-machine env --swarm ${node})`", and then create the subnet with:
 
 {% highlight bash %}
 docker network create -d overlay --subnet=172.100.100.0/24 mariadb
@@ -411,13 +413,13 @@ networks:
     name: mariadb
 {% endhighlight %}
 
-Before moving on to the secondary cluster members, the script first waits for the bootstrap node to report that it is operational by looking for the log entry `Synchronized with group, ready for connections` via the `docker logs` command. The process is then repeated for the remaining nodes, except the secondary nodes are started with a list of nodes to connect to.
+Before moving on to the secondary cluster members, the script first waits for the bootstrap node to report that it is operational by looking for the log entry "`Synchronized with group, ready for connections`" via the "`docker logs`" command. The process is then repeated for the remaining nodes, except the secondary nodes are started with a list of nodes to connect to.
 
 By deploying the DB cluster into swarm's overlay network, the built-in DNS service will automatically allow the containers to find each other by name. This allows for relatively simple scaling of the database cluster, adding new members with just a couple of commands. While not exactly true “service discovery” per-se, as long as we stick to a standard naming scheme then adding new cluster members is a trivial process that can be easily automated.
 
 ## <a name="verify-mariadb"></a>Verify Galera cluster membership
 
-Once all of the cluster members have started, you can confirm the Galera cluster is operational by setting your environment via `eval ${docker-machine env --swarm ${node})` and running a few verification commands:
+Once all of the cluster members have started, you can confirm the Galera cluster is operational by setting your environment via "`eval ${docker-machine env --swarm ${node})`" and running a few verification commands:
 
 {% highlight bash %}
 docker exec -ti sw1-db1 mysql -psecret "show status like 'wsrep_local_state_comment';"
@@ -434,13 +436,17 @@ docker exec -ti sw1-db1 mysql -psecret "show status like 'wsrep_local_state_uuid
 {% endhighlight %}
 ...all members should report back the same UUID.
 
-Once you have confirmed the cluster is operational, you can *optionally* re-run `./deploy_mariadb.sh` to redeploy the bootstrap node as a standard galera cluster member.
+Once you have confirmed the cluster is operational, you can *optionally* re-run [`deploy_mariadb.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/deploy_mariadb.sh) to redeploy the bootstrap node as a standard galera cluster member.
 
 ## <a name="destroy-swarm"></a>Destroying the Swarm
 
-At this point, you may just want to clear everything and start over. To destroy the swarm (without cancelling any instances), run the `destroy_swarm.sh` script. If you provisioned your nodes in IBM Softlayer, you can use the `cancel_softlayer.sh` script to cancel and destroy the instances you provisioned using `provision_softlayer.sh`. You can also tear down and rebuild the swarm using the `rebuild_swarm.sh` script (it just calls `destroy_swarm.sh` followed by `build_swarm.sh`), which has been included for convenience when experimenting.
+At this point, you may just want to clear everything and start over. To destroy the swarm (without cancelling any instances), run the [`destroy_swarm.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/destroy_swarm.sh) script. 
 
-> **Note**: The `cancel_softlayer.sh` script (just like the ordering script) needs `expect` installed on your system to get around `slcli` not having a `-y` option to force through orders/cancellations without any input. To perform the raw API calls to order and cancel without any prompting, or for more information on using the Softlayer ordering API programatically, refer to the [documentation](https://sldn.softlayer.com/blog/phil/Simplified-CCI-Creation).
+If you provisioned your nodes in IBM Softlayer, you can use the [`cancel_softlayer.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/cancel_softlayer.sh) script to cancel and destroy the instances you provisioned using [`provision_softlayer.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/provision_softlayer.sh). 
+
+You can also tear down and rebuild the swarm using the [`rebuild_swarm.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/rebuild_swarm.sh) script (it just calls [`destroy_swarm.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/destroy_swarm.sh) followed by [`build_swarm.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/build_swarm.sh)), which has been included for convenience when experimenting.
+
+> **Note**: The [`cancel_softlayer.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/cancel_softlayer.sh) script (just like the ordering script) needs `expect` installed on your system to get around `slcli` not having a `-y` option to force through orders/cancellations without any input. 
 
 # Happy Swarming!
 
