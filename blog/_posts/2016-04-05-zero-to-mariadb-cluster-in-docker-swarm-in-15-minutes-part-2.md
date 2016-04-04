@@ -200,7 +200,7 @@ docker-machine create \
 {: style="align: center; margin-top: -40px; margin-bottom: -5px;"}
 In Jacob Blain Christen's article [Toward a Production-Ready Docker Swarm with Consul](https://medium.com/on-docker/toward-a-production-ready-docker-swarm-cluster-with-consul-9ecd36533bb8#.fngyb759z), he made a **very** useful discovery -- if you configure machine to point swarm at a non-existent consul address, it will still create the node succesfully and just continue to retry its connection rather than giving up.
 
-Since we haven't deployed the actual consul containers yet, the swarm nodes can't yet form a multi-master cluster. The [`build_swarm.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/build_swarm.sh) script takes advantage of this technique to buy some time to deploy the consul containers *after* we've got the individual swarm nodes started in a semi-functional state.
+Since we haven't deployed the actual consul containers yet, the swarm nodes can't yet form a multi-master cluster. The [`build_swarm.sh`](https://github.com/dayreiner/docker-swarm-mariadb/blob/master/scripts/build_swarm.sh) script and compose file borrow his technique to buy some time to deploy the consul containers *after* we've got the individual swarm nodes started in a semi-functional state. 
 
 After the swarm masters have been provisioned with machine, `build_swarm.sh` will then run `docker-compose` to deploy Consul across all nodes. 
 
