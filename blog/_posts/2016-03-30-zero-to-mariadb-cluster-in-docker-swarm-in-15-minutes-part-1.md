@@ -1,6 +1,6 @@
 ---
 layout: blog/post
-title: "Zero to HA MariaDB and Docker Swarm in under 15 minutes on IBM Softlayer (or anywhere, really)<br />Part One" 
+title: "Zero to HA MariaDB and Docker Swarm in under 15 minutes on IBM Softlayer (or anywhere, really) <br />Part One" 
 date: 2016-03-30 20:00:00
 image: '/blog/assets/img/docker-swarm.png'
 description: Part one of a two-part series on building a high-availability containerized MariaDB Galera cluster on top of a multi-master docker swarm in the cloud.
@@ -14,7 +14,7 @@ excerpt: It has always bothered me when reading tutorials and documentation on s
 Photo By: [Håkan Dahlström](https://www.flickr.com/photos/dahlstroms/)
 {: style="color:gray; font-size: 80%; text-align: center; padding: 0px;"}
 
-*Part one of a two-part series. The second part will be posted in a couple of days...*
+**Part one of a two-part series. Part two, which dives into (much) deeper detail about the process is [available here](/zero-to-mariadb-cluster-in-docker-swarm-in-15-minutes-part-2/).**
 
 While I manage environments across multiple cloud platforms (and even the occasional "traditional" colo) at [my workplace](https://k2digital.com), our primary application environment is in [IBM Softlayer](http://www.softlayer.com/). I enjoy working with Softlayer -- the API is fairly robust, there's a lot of choice (even bare-metal, should that tickle your fancy) and it allows me to deploy instances in both Toronto and Montreal. Canadian data-residency is a "big deal" for many Canadian companies; which the other big players like Google, AWS<sup>[1](https://aws.amazon.com/fr/blogs/aws/in-the-works-aws-region-in-canada/)</sup> and Azure<sup>[2](https://www.microsoft.com/en-ca/web/datacentre/default.aspx)</sup> can't accomodate (*yet*).
 
@@ -96,4 +96,6 @@ The repo also includes scripts for tearing down the swarm, rebuilding it and can
 
 Nice! 
 
-In part two of this series we'll go through the process manually to explain things in more detail for those who prefer to do things from scratch, use a different provider or want to adapt the process to suit their orchestration process. Happy swarming!
+In [part two](/zero-to-mariadb-cluster-in-docker-swarm-in-15-minutes-part-2/) of this series we'll go through the process manually to explain things in more detail for those who prefer to do things from scratch, use a different provider or want to adapt the process to suit their orchestration process. Happy swarming!
+
+![SwarmLove](/blog/assets/img/docker-machine-swarm-mariadb-love.png)
