@@ -1,7 +1,7 @@
 ---
 layout: blog/post
 title: "Zero to HA MariaDB and Docker Swarm in under 15 minutes on IBM Softlayer (or anywhere, really) <br />Part Two"
-date: 2016-04-05 08:00:00
+date: 2016-04-05 07:45:00
 image: '/blog/assets/img/docker-machine-swarm-mariadb-love.png'
 description: Part two of a two-part series on building a high-availability containerized MariaDB Galera cluster on top of a multi-master docker swarm in the cloud.
 tags: docker docker-swarm docker-compose docker-machine consul mariadb softlayer
