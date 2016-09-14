@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/dayreiner
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://18pct.com
+  * I am dayreiner (https://keybase.io/dayreiner) on keybase.
+  * I have a public key with fingerprint C9B8 3E33 457A 7E82 52BA  1D32 8800 AEA0 322E A3E2
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "010164b2566e9134f172001131d0bf1ed5da2b80749ec5cd3484811c9c22baec75850a",
+            "fingerprint": "c9b83e33457a7e8252ba1d328800aea0322ea3e2",
+            "host": "keybase.io",
+            "key_id": "8800aea0322ea3e2",
+            "kid": "010164b2566e9134f172001131d0bf1ed5da2b80749ec5cd3484811c9c22baec75850a",
+            "uid": "d22baaa4dc747104d406642fb94daa19",
+            "username": "dayreiner"
+        },
+        "service": {
+            "hostname": "18pct.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1473855000,
+    "expire_in": 157680000,
+    "prev": "271f25c443d3c9e77b885d986b0701d4da46c654312eb49979bd88e94c2705ea",
+    "seqno": 4,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.56
+Comment: https://keybase.io/crypto
+
+yMIhAnicrZJbiE1RHMbPMTMnRu7XJkpbiTFNa6299t5rH4bRoMmd5FI41u3MbDOz
+97HPnitTLoNQI1GSS0wkRIli3EKT+/XBtUmuGWUeJmSEsvbEm0dPq/X1+77+/69/
+S6+MSHa0/8XzdyfP/wqjd67urIwsfD5h6CqNeaJWi6/SymTXI8uFTAeJMkdocQ1A
+AE3MkGGa0oY6TkILAQChDgVgSSiFIShiBFjYltzgQscEEwi5zRFiVHLLIAagWp6W
+dNwS6ad8xw1ULLcZ0aWuY8OiliTIUDAUOiIEACop0BGSVJdIGUu9dOhQwzGalvmO
+pzT1SXSN9w/+P89d2RUnQpVSLLiFLQiwwMA0MUoyGwtKoR2Caem7tEKGNK31peNK
+X6vP05Rc5XAZNhuu8geBJMWDfO5VKGfK9wKPe+VKLg2CVDx0BbWpEKuWLPEnIMEc
+V6gSlaFK+mnHc7U4VCQPnDARYksnhgEAyNNkTcrxZcIJCcMyVUehmvJllYpEFkwi
+g2OsC53b0rIYIYawicmABaBQ+2CTmwbWIZIM27ZlM0GItDFHFjBk2ElarnQ9LY7V
+mLRERaadEpcGlb7U6q9dWZIZiWZHYlndwuOKZPfo+/fkJhd0jxyf3bBWP1nY2Dhk
+BPkwYoXecrr3r4L9lzvnjE+dKZrf7zHtc+xjRd/BN5unT3+/J6ftYPcp9OfQX7sq
+jtweN6OsIdO4kbvNyV38aR/b03o9r+HW8kkdkSvPGqdlzAryC4a1bG7N4huK6zac
+GF99Ouv1jPbDr97lLOh1PzqvuvjEoVM91wYL1nk/0Lm5bd3WjVqzdVFRbMD5C+5U
+NHbHDv1Ly7S64gMZY3Z7hc1FTTH0aOLOH8GZzqObHgwcTbYUbImVz/o6srymo27Z
+2fbPObFO+mJe1aUxq/cOejOppnT7zfV96hZ3PIw+2NjjLUP3nsLmxuFFmYXsWsf3
+bzOXvtzctPxLvO2ceFL/G9NANyI=
+=GQJ6
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/dayreiner
+
+==================================================================
